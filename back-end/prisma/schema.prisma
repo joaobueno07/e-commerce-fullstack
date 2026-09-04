@@ -1,0 +1,38 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+    provider     = "prisma-client"
+    output       = "../prisma/generated/prisma"
+    moduleFormat = "cjs"
+}
+
+datasource db {
+    provider = "postgresql"
+}
+
+model User {
+    id        Int      @id @default(autoincrement()) // Chave primária auto-incremental
+    email     String   @unique // Campo único (indexado)
+    name      String? // O ponto de interrogação (?) torna o campo opcional
+    createdAt DateTime @default(now()) // Preenche automaticamente com a data atual
+    updatedAt DateTime @updatedAt
+}
+
+model Category {
+    id       String    @id @default(uuid())
+    name     String
+    products Product[]
+}
+
+model Product {
+    id          Int      @id @default(autoincrement())
+    name        String
+    price       String
+    stock       Int
+    description String
+    categoryId  String
+    category    Category @relation(fields: [categoryId], references: [id])
+}
