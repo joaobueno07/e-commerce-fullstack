@@ -1,4 +1,4 @@
-import { Home, ShoppingBag } from "lucide-react";
+import { Home, ShoppingBag, Blocks, PanelsTopLeft } from "lucide-react";
 
 export const sidebarMenu = [
   {
@@ -10,5 +10,10 @@ export const sidebarMenu = [
     title: "Produtos",
     url: "/admin/produtos",
     icon: ShoppingBag,
+  },
+  {
+    title: "Layout da Aplicação",
+    url: "/layout",
+    icon: PanelsTopLeft,
   },
 ];

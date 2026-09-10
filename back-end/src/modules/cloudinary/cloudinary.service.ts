@@ -5,7 +5,7 @@ import { CloudinaryResponse } from './@types/Cloudinary';
 
 @Injectable()
 export class CloudinaryService {
-  uploadFile(file: any): Promise<CloudinaryResponse> {
+  uploadFile(file: Express.Multer.File): Promise<CloudinaryResponse> {
     return new Promise<CloudinaryResponse>((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         (error, result) => {

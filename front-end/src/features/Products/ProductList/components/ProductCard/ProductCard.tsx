@@ -10,7 +10,7 @@ export default function ProductCard({ product }: { product: Products }) {
   const addToCart = useShoppingBagStore((state) => state.addToCart);
 
   return (
-    <div className="mt-3 h-96">
+    <div className="mt-3">
       <div className="border p-4 flex justify-center rounded-lg">
         <Link href={`/produtos/${product.id}`}>
           <Image

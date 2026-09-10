@@ -15,7 +15,7 @@ export default function ProductCarousel({
   arrows = true,
 }: ProductCarouselType) {
   return (
-    <div className="my-3">
+    <div>
       <h1 className="my-2 font-bold text-3xl">{categoryName}</h1>
 
       <Carousel className="">
