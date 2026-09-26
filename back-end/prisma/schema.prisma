@@ -16,9 +16,16 @@ datasource db {
 model User {
     id        Int      @id @default(autoincrement()) // Chave primária auto-incremental
     email     String   @unique // Campo único (indexado)
-    name      String? // O ponto de interrogação (?) torna o campo opcional
+    name      String
+    status    String
     createdAt DateTime @default(now()) // Preenche automaticamente com a data atual
-    updatedAt DateTime @updatedAt
+    updatedAt DateTime @updatedAt()
+}
+
+model ProductBrand {
+    id       String    @id @default(uuid())
+    name     String
+    products Product[]
 }
 
 model Category {
@@ -28,11 +35,69 @@ model Category {
 }
 
 model Product {
-    id          Int      @id @default(autoincrement())
-    name        String
-    price       String
-    stock       Int
-    description String
-    categoryId  String
-    category    Category @relation(fields: [categoryId], references: [id])
+    id              String           @id @default(uuid())
+    name            String
+    price           String
+    description     String
+    slug            String
+    status          String
+    brand           ProductBrand     @relation(fields: [brandId], references: [id])
+    brandId         String
+    category        Category         @relation(fields: [categoryId], references: [id])
+    categoryId      String
+    productImages   String[]
+    productOptions  ProductOption[]
+    productVariants ProductVariant[]
+}
+
+model ProductOption {
+    id        String               @id @default(uuid())
+    name      String
+    productId String
+    product   Product              @relation(fields: [productId], references: [id], onDelete: Cascade)
+    values    ProductOptionValue[]
+
+    @@unique([productId, name])
+}
+
+model Inventory {
+    id        String         @id @default(uuid())
+    quantity  Int            @default(0)
+    variantId String         @unique
+    variant   ProductVariant @relation(fields: [variantId], references: [id], onDelete: Cascade)
+    updatedAt DateTime       @updatedAt
+}
+
+model ProductVariant {
+    id             String               @id @default(uuid())
+    sku            String               @unique
+    barcode        String?
+    price          Decimal              @db.Decimal(10, 2)
+    compareAtPrice Decimal?             @db.Decimal(10, 2)
+    weight         Decimal?             @db.Decimal(10, 3)
+    productId      String
+    product        Product              @relation(fields: [productId], references: [id], onDelete: Cascade)
+    optionValues   VariantOptionValue[]
+    inventory      Inventory?
+    createdAt      DateTime             @default(now())
+    updatedAt      DateTime             @updatedAt
+}
+
+model VariantOptionValue {
+    variantId     String
+    variant       ProductVariant     @relation(fields: [variantId], references: [id], onDelete: Cascade)
+    optionValueId String
+    optionValue   ProductOptionValue @relation(fields: [optionValueId], references: [id], onDelete: Cascade)
+
+    @@id([variantId, optionValueId])
+}
+
+model ProductOptionValue {
+    id           String               @id @default(uuid())
+    value        String
+    optionId     String
+    option       ProductOption        @relation(fields: [optionId], references: [id], onDelete: Cascade)
+    variantLinks VariantOptionValue[]
+
+    @@unique([optionId, value])
 }

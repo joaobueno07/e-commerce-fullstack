@@ -5,8 +5,6 @@ import { PrismaService } from 'src/database/prisma.service';
 export class ProductService {
   constructor(private readonly prisma: PrismaService) {}
 
-  // async createProduct(createProductDto) {}
-
   getProducts() {
     return {
       message: 'olá mundo',

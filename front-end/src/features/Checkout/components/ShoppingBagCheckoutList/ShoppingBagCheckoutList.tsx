@@ -9,6 +9,10 @@ export default function ShoppingBagCheckoutList() {
   const shoppingBag = useShoppingBagStore((state) => state.shoppingBag);
   const removeToCart = useShoppingBagStore((state) => state.removeToCart);
 
+  const totalValue = shoppingBag.reduce((acc, product) => {
+    return acc + product.price * product.quantity;
+  }, 0);
+
   return (
     <div className="w-1/2 h-2/4 p-4 border rounded-xl">
       <h1 className="font-bold text-xl">
@@ -49,8 +53,10 @@ export default function ShoppingBagCheckoutList() {
 
       <Separator className="my-3" />
 
-      <div>
-        <h1>Total a pagar: </h1>
+      <div className="flex items-center justify-between">
+        <h1>Total a pagar: {toCurrencyBRL(totalValue)}</h1>
+
+        <Button>Finalizar sua compra</Button>
       </div>
     </div>
   );

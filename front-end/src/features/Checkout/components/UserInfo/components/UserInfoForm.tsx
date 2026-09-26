@@ -21,28 +21,28 @@ export default function UserInfoForm({
       <form>
         <div className="my-2">
           <Field>
-            <FieldLabel>Nome Completo</FieldLabel>
+            <FieldLabel>Nome Completo:</FieldLabel>
             <Input />
           </Field>
         </div>
 
         <div className="my-2">
           <Field>
-            <FieldLabel>Data de Nasc</FieldLabel>
+            <FieldLabel>Data de Nascimento:</FieldLabel>
             <Input />
           </Field>
         </div>
 
         <div className="my-2">
           <Field>
-            <FieldLabel>E-mail</FieldLabel>
+            <FieldLabel>E-mail:</FieldLabel>
             <Input />
           </Field>
         </div>
 
         <div className="my-2">
           <Field>
-            <FieldLabel>Identidade</FieldLabel>
+            <FieldLabel>Identidade:</FieldLabel>
             <Input />
           </Field>
         </div>
