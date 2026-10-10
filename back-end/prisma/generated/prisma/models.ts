@@ -9,6 +9,12 @@
  * 🟢 You can import this file directly.
  */
 export type * from './models/User.js'
+export type * from './models/ProductBrand.js'
 export type * from './models/Category.js'
 export type * from './models/Product.js'
+export type * from './models/ProductOption.js'
+export type * from './models/Inventory.js'
+export type * from './models/ProductVariant.js'
+export type * from './models/VariantOptionValue.js'
+export type * from './models/ProductOptionValue.js'
 export type * from './commonInputTypes.js'

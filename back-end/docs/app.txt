@@ -1,0 +1,27 @@
+DOCUMENTAÇÃO GERAL DA API EM NEST PARA E-COMMERCE
+
+#Padrão de arquivos:
+    - sempre utilizar com traço nomes de arquivos
+        ex => create-user.dto.ts
+
+    - todo dominio tem um arquivo de tipo com o mesmo nome em maiúsculo
+        ex: User.ts
+
+    - se for interface para tipar especifique que é uma interface e acrescente o sufixo Type
+        ex: IUserType
+
+# OBS: O banco de dados utiliza a plataforma Neon para hospedagem e o PostgreSQL para registros.
+Para acessar e manipular os dados, utilizamos PrismaORM.
+
+# OBS: O projeto da API de E-commerce possui todas suas rotas mapeadas no Swagger.
+Basta acessar "localhost:3000/api" (em dev), ou https://seudominio.com.br/api (em prod).
+
+
+# Camadas e suas resposabilidades:
+    - Service => Regra de negócio
+    - Repository => manipula banco de dados diretamente
+    - module => gerencia o módulo (app, auth, user, product, etc...)
+    - controller => manipula o fluxo http e utiliza os outros arquivos
+
+# OBS: O diretorio dto que existe dentro de cada domínio precisa ser inicializado sempre.
+
