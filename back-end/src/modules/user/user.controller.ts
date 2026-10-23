@@ -8,7 +8,6 @@ import {
   Put,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import type { IUserType } from './@types/User';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 
@@ -21,9 +20,9 @@ export class UserController {
     return this.usersService.getUsers();
   }
 
-  @Get(':id')
+  @Get('/:id')
   getUserById(@Param('id') id: string) {
-    return this.usersService.getUserById(id);
+    return this.usersService.findUserById(Number(id));
   }
 
   @Post()

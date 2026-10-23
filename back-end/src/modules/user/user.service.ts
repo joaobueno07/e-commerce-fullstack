@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { ConflictException, Injectable } from '@nestjs/common';
 import { UserRepository } from './repository/user.repository';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { HashDataService } from 'src/shared/hash-data/hash-data.service';
 
 @Injectable()
 export class UserService {
@@ -11,12 +12,29 @@ export class UserService {
     return this.userRepository.getUsers();
   }
 
-  getUserById(user: string) {
-    return this.userRepository.getUserById(user);
+  findUserById(id: number) {
+    return this.userRepository.findUserById(id);
   }
 
-  createUsers(user: CreateUserDto) {
-    return this.userRepository.createUser(user);
+  async createUsers(user: CreateUserDto) {
+    const IsExistingUser = await this.userRepository.findUserByEmail(
+      user.email,
+    );
+
+    if (IsExistingUser) {
+      throw new ConflictException('Já existe um usuário com este e-mail');
+    }
+
+    const hashPassword = new HashDataService();
+
+    const formattedUser: CreateUserDto = {
+      name: user.name,
+      email: user.email,
+      password: await hashPassword.hash(user.password),
+      status: user.status,
+    };
+
+    return this.userRepository.createUser(formattedUser);
   }
 
   updateUser(userId: string, user: UpdateUserDto) {

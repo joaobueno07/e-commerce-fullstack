@@ -5,7 +5,7 @@ import { UserRepository } from './repository/user.repository';
 
 @Module({
   imports: [],
-  exports: [],
+  exports: [UserService, UserRepository],
   providers: [UserService, UserRepository],
   controllers: [UserController],
 })

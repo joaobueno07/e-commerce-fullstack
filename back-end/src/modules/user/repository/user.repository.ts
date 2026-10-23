@@ -11,9 +11,31 @@ export class UserRepository {
     return this.prismaService.user.findMany();
   }
 
-  getUserById(userId: string) {
+  findUserById(id: number) {
     return this.prismaService.user.findUnique({
-      where: { id: Number(userId) },
+      where: { id: id },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true,
+      },
+    });
+  }
+
+  findUserByEmail(email: string) {
+    return this.prismaService.user.findUnique({
+      where: { email: email },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        status: true,
+        createdAt: true,
+        updatedAt: true,
+      },
     });
   }
 
@@ -22,6 +44,7 @@ export class UserRepository {
       data: {
         name: user.name,
         email: user.email,
+        password: user.password,
         status: user.status,
         createdAt: new Date(),
       },
