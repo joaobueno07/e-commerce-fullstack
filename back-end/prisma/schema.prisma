@@ -26,13 +26,44 @@ enum UserStatus {
 }
 
 model User {
-    id        Int        @id @default(autoincrement()) // Chave primária auto-incremental
+    id        String     @id @default(uuid()) // Chave primária auto-incremental
     email     String     @unique // Campo único (indexado)
     name      String
     status    UserStatus
     password  String
+    customer  Customer?
     createdAt DateTime   @default(now()) // Preenche automaticamente com a data atual
     updatedAt DateTime   @updatedAt()
+}
+
+model Address {
+    id           String   @id @default(uuid())
+    customerId   String
+    zipCode      String
+    street       String
+    number       String
+    complement   String
+    neighborhood String
+    city         String
+    state        String
+    country      String
+    customer     Customer @relation(fields: [customerId], references: [id], onDelete: NoAction)
+}
+
+model Customer {
+    id          String   @id @default(uuid()) // Chave primária auto-incremental
+    userId      String   @unique
+    firstName   String
+    lastName    String
+    document    String   @unique
+    birthDate   DateTime
+    phoneNumber String
+
+    createdAt DateTime  @default(now())
+    updatedAt DateTime  @updatedAt
+    address   Address[]
+
+    user User @relation(fields: [userId], references: [id], onDelete: NoAction)
 }
 
 model ProductBrand {

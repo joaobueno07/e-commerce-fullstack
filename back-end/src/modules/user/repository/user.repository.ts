@@ -11,7 +11,7 @@ export class UserRepository {
     return this.prismaService.user.findMany();
   }
 
-  findUserById(id: number) {
+  findUserById(id: string) {
     return this.prismaService.user.findUnique({
       where: { id: id },
       select: {
@@ -53,14 +53,14 @@ export class UserRepository {
 
   updateUser(userId: string, user: UpdateUserDto) {
     return this.prismaService.user.update({
-      where: { id: Number(userId) },
+      where: { id: userId },
       data: user,
     });
   }
 
   deleteUser(userId: string) {
     return this.prismaService.user.delete({
-      where: { id: Number(userId) },
+      where: { id: userId },
     });
   }
 }

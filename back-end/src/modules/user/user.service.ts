@@ -12,7 +12,7 @@ export class UserService {
     return this.userRepository.getUsers();
   }
 
-  findUserById(id: number) {
+  findUserById(id: string) {
     return this.userRepository.findUserById(id);
   }
 
